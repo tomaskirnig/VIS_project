@@ -1,0 +1,14 @@
+F:\VS\VIS\VIS_project\VIS_project\bin\Debug\net8.0\Data.exe
+F:\VS\VIS\VIS_project\VIS_project\bin\Debug\net8.0\Data.deps.json
+F:\VS\VIS\VIS_project\VIS_project\bin\Debug\net8.0\Data.runtimeconfig.json
+F:\VS\VIS\VIS_project\VIS_project\bin\Debug\net8.0\Data.dll
+F:\VS\VIS\VIS_project\VIS_project\bin\Debug\net8.0\Data.pdb
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.AssemblyInfoInputs.cache
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.AssemblyInfo.cs
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.csproj.CoreCompileInputs.cache
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.dll
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\refint\Data.dll
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.pdb
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\Data.genruntimeconfig.cache
+F:\VS\VIS\VIS_project\VIS_project\obj\Debug\net8.0\ref\Data.dll
