@@ -1,0 +1,30 @@
++ implemented
+. implementing
+- not implemented
+-------------------
+Data
+- Table data gateway +
+- Row data gateway + (Genre)
+- Active Record -
+- Data mapper -
+
+Domain
+- Identity field +
+- Domain model -
+- Transcaction script -
+
+- Unit of Work - (dva způsoby)
+- Identity Map -
+- Lazy Load -
+
+- Identity Field -
+- Foreign Key Mapping -
+- Association Table Mapping -
+- Dependent Mapping -
+- Embedded Value -
+
+- Single Table Inheritence -
+- Class Table Inheritence -
+- Concrete Table Inheritence -
+- Layer Supertype -
+- Service Stub/Mock Object -
