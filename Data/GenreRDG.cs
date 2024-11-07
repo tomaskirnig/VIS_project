@@ -10,9 +10,10 @@ namespace Data
         public string GenreNameShort { get; set; }
         public string GenreNameFull { get; set; }
 
-        public GenreRTG(string connectionString)
+        public GenreRDG(string connectionString)
         {
             _connectionString = connectionString;
+
         }
 
         // Loads a single row into the instance
@@ -22,7 +23,7 @@ namespace Data
             {
                 connection.Open();
                 var sql = "SELECT * FROM Genres WHERE GenreId = @GenreId";
-                var genre = connection.QuerySingleOrDefault<GenreRTG>(sql, new { GenreId = genreId });
+                var genre = connection.QuerySingleOrDefault<GenreRDG>(sql, new { GenreId = genreId });
 
                 if (genre != null)
                 {
