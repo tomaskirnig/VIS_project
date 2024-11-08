@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using Dapper;
+
 namespace Data
 {
     internal class GenreRDG

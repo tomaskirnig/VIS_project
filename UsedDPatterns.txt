@@ -6,7 +6,7 @@ Data
 - Table data gateway +
 - Row data gateway + (Genre)
 - Active Record -
-- Data mapper -
+- Data mapper +
 
 Domain
 - Identity field +
