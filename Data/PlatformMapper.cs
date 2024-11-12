@@ -5,9 +5,9 @@ namespace Data
 {
     internal class PlatformMapper
     {
-        public Platform MapPlatform(IDataReader data) 
+        public PlatformDTO MapPlatform(IDataReader data) 
         {
-            return new Platform
+            return new PlatformDTO
             {
                 PlatformId = data.GetInt32(data.GetOrdinal("PlatformId")),
                 Name = data.GetString(data.GetOrdinal("Name")),

@@ -4,17 +4,17 @@ using System.IO;
 
 namespace Data
 {
-    internal class DBControl
+    public static class DBControl
     {
-        private readonly string _databaseFilePath;
+        private static string _databaseFilePath;
 
-        public DBControl(string databaseFilePath)
+        public static void setDatabaseFilePath(string databaseFilePath)
         {
             _databaseFilePath = databaseFilePath;
         }
 
         // Method to create the database if it doesn't exist
-        public void CreateDatabaseIfNotExists()
+        public static void CreateDatabaseIfNotExists()
         {
             if (!File.Exists(_databaseFilePath))
             {
@@ -31,7 +31,7 @@ namespace Data
         }
 
         // Method to initialize the database with required tables
-        private void InitializeDatabase()
+        private static void InitializeDatabase()
         {
             using (var connection = new SQLiteConnection($"Data Source={_databaseFilePath};Version=3;"))
             {
@@ -50,7 +50,7 @@ namespace Data
             }
         }
 
-        private void CreateGenresTable(SQLiteConnection connection)
+        private static void CreateGenresTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Genres (
@@ -61,7 +61,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreatePlatformsTable(SQLiteConnection connection)
+        private static void CreatePlatformsTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Platforms (
@@ -74,7 +74,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreateGamesTable(SQLiteConnection connection)
+        private static void CreateGamesTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Games (
@@ -88,7 +88,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreatePlayersTable(SQLiteConnection connection)
+        private static void CreatePlayersTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Players (
@@ -105,7 +105,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreateReviewsTable(SQLiteConnection connection)
+        private static void CreateReviewsTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Reviews (
@@ -121,7 +121,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreatePurchasesTable(SQLiteConnection connection)
+        private static void CreatePurchasesTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS Purchases (
@@ -136,7 +136,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void CreateOldValuesTable(SQLiteConnection connection)
+        private static void CreateOldValuesTable(SQLiteConnection connection)
         {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS OldValues (
@@ -152,7 +152,7 @@ namespace Data
             ExecuteNonQuery(sql, connection);
         }
 
-        private void ExecuteNonQuery(string sql, SQLiteConnection connection)
+        private static void ExecuteNonQuery(string sql, SQLiteConnection connection)
         {
             using (var command = new SQLiteCommand(sql, connection))
             {
@@ -161,7 +161,7 @@ namespace Data
         }
 
         // Method to delete the database
-        public void DeleteDatabase()
+        public static void DeleteDatabase()
         {
             if (File.Exists(_databaseFilePath))
             {

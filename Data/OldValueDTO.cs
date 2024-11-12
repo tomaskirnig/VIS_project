@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class OldValue
+    public class OldValueDTO
     {
         public int ChangeId { get; set; }
         public DateTime ChangedDate { get; set; }

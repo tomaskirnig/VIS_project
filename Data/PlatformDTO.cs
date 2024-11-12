@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Platform
+    public class PlatformDTO
     {
         public int PlatformId { get; set; }
         public string Name { get; set; }

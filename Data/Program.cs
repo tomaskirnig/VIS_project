@@ -4,8 +4,8 @@ namespace Data
 {
     class Program
     {
-        readonly static string _databaseFilePath = "myDB.db";
-        readonly static string _connectionString = $"Data Source={_databaseFilePath};Version=3;";
+        public readonly static string _databaseFilePath = "myDB.db";
+        public readonly static string _connectionString = $"Data Source={_databaseFilePath};Version=3;";
         static void Main(string[] args)
         {
            

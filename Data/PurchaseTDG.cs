@@ -3,35 +3,35 @@ using Dapper;
 
 namespace Data
 {
-    internal class PurchaseTDG
+    public static class PurchaseTDG
     {
-        private readonly string _connectionString;
-        public PurchaseTDG(string connectionString)
+        private static string _connectionString;
+        public static void SetConnectionString(string connectionString)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public IEnumerable<Purchase> GetAll()
+        public static IEnumerable<PurchaseDTO> GetAll()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Purchases";
-                return connection.Query<Purchase>(request);
+                return connection.Query<PurchaseDTO>(request);
             }
         }
 
-        public Purchase GetById(int PurchaseId)
+        public static PurchaseDTO GetById(int PurchaseId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Purchases WHERE PurchaseId = @PurchaseId";
-                return connection.QuerySingleOrDefault<Purchase>(request, new { PurchaseId = PurchaseId });
+                return connection.QuerySingleOrDefault<PurchaseDTO>(request, new { PurchaseId = PurchaseId });
             }
         }
 
-        public void Insert(Purchase data)
+        public static void Insert(PurchaseDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -42,7 +42,7 @@ namespace Data
             }
         }
 
-        public void Update(Purchase data)
+        public static void Update(PurchaseDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -54,7 +54,7 @@ namespace Data
             }
         }
 
-        public void Delete(int PurchaseId)
+        public static void Delete(int PurchaseId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

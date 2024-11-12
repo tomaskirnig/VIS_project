@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Purchase
+    public class GameDTO
     {
-        public int PurchaseId { get; set; }
         public int GameId { get; set; }
-        public int PlayerId { get; set; }
+        public string Title { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public string Publisher { get; set; }
         public decimal Price { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        public int MinimumAge { get; set; }
     }
 }

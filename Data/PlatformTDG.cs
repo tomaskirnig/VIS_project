@@ -5,18 +5,18 @@ using System.Data;
 
 namespace Data
 {
-    public class PlatformTDG
+    public static class PlatformTDG
     {
-        private readonly string _connectionString;
-        private readonly PlatformMapper _platformMapper;
+        private static string _connectionString;
+        private static PlatformMapper _platformMapper;
 
-        public PlatformTDG(string connectionString)
+        public static void SetConnectionString(string connectionString)
         {
-            _connectionString = connectionString;
-            _platformMapper = new PlatformMapper(); 
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+            _platformMapper = new PlatformMapper();
         }
 
-        public Platform GetById(int platformId)
+        public static PlatformDTO GetById(int platformId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -38,9 +38,9 @@ namespace Data
             return null; // Return null if no platform is found
         }
 
-        public IEnumerable<Platform> GetAll()
+        public static IEnumerable<PlatformDTO> GetAll()
         {
-            var platforms = new List<Platform>();
+            var platforms = new List<PlatformDTO>();
 
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -60,7 +60,7 @@ namespace Data
             return platforms;
         }
 
-        public void Insert(Platform platform)
+        public static void Insert(PlatformDTO platform)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -71,7 +71,7 @@ namespace Data
             }
         }
 
-        public void Update(Platform platform)
+        public static void Update(PlatformDTO platform)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -81,7 +81,7 @@ namespace Data
             }
         }
 
-        public void Delete(int platformId)
+        public static void Delete(int platformId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

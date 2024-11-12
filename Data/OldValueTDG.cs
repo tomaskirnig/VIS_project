@@ -3,36 +3,36 @@ using Dapper;
 
 namespace Data
 {
-    internal class OldValueTDG
+    public static class OldValueTDG
     {
-        private readonly string _connectionString;
+        private static string _connectionString;
 
-        public OldValueTDG(string connectionString)
+        public static void SetConnectionString(string connectionString)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public IEnumerable<OldValue> GetAll()
+        public static IEnumerable<OldValueDTO> GetAll()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM OldValues";
-                return connection.Query<OldValue>(request);
+                return connection.Query<OldValueDTO>(request);
             }
         }
 
-        public OldValue GetById(int OldValueId)
+        public static OldValueDTO GetById(int OldValueId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM OldValues WHERE OldValueId = @OldValueId";
-                return connection.QuerySingleOrDefault<OldValue>(request, new { OldValueId = OldValueId });
+                return connection.QuerySingleOrDefault<OldValueDTO>(request, new { OldValueId = OldValueId });
             }
         }
 
-        public void Insert(OldValue data)
+        public static void Insert(OldValueDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -43,7 +43,7 @@ namespace Data
             }
         }
 
-        public void Update(OldValue data)
+        public static void Update(OldValueDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -54,7 +54,7 @@ namespace Data
             }
         }
 
-        public void Delete(int OldValueId)
+        public static void Delete(int OldValueId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

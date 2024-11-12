@@ -1,37 +1,49 @@
-﻿using System.Data.SQLite;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
 using Dapper;
 using Data;
 
-public class GameTDG
+public static class GameTDG
 {
-    private readonly string _connectionString;
+    private static string _connectionString;
 
-    public GameTDG(string connectionString)
+    public static void SetConnectionString(string connectionString)
     {
-        _connectionString = connectionString;
+        _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
     }
 
-    public IEnumerable<Game> GetAll()
+    public static IEnumerable<GameDTO> GetAll()
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Games";
-            return connection.Query<Game>(request);
+            return connection.Query<GameDTO>(request);
         }
     }
 
-    public Game GetById(int gameId)
+    public static GameDTO GetById(int gameId)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Games WHERE GameId = @GameId";
-            return connection.QuerySingleOrDefault<Game>(request, new { GameId = gameId });
+            return connection.QuerySingleOrDefault<GameDTO>(request, new { GameId = gameId });
         }
     }
 
-    public void Insert(Game data)
+    public static GameDTO GetByTitle(string title)
+    {
+        using (var connection = new SQLiteConnection(_connectionString))
+        {
+            connection.Open();
+            var request = "SELECT * FROM Games WHERE Title = @title";
+            return connection.QuerySingleOrDefault<GameDTO>(request, new { GameId = gameId });
+        }
+    }
+
+    public static void Insert(GameDTO data)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
@@ -42,7 +54,7 @@ public class GameTDG
         }
     }
 
-    public void Update(Game data)
+    public static void Update(GameDTO data)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
@@ -54,7 +66,7 @@ public class GameTDG
         }
     }
 
-    public void Delete(int gameId)
+    public static void Delete(int gameId)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
@@ -64,4 +76,3 @@ public class GameTDG
         }
     }
 }
-

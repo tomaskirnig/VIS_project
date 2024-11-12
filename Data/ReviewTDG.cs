@@ -3,36 +3,36 @@ using Dapper;
 
 namespace Data
 {
-    class ReviewTDG
+    public static class ReviewTDG
     {
-        private readonly string _connectionString;
+        private static string _connectionString;
 
-        public ReviewTDG(string connectionString)
+        public static void SetConnectionString(string connectionString)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        public IEnumerable<Review> GetAll()
+        public static IEnumerable<ReviewDTO> GetAll()
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Reviews";
-                return connection.Query<Review>(request);
+                return connection.Query<ReviewDTO>(request);
             }
         }
 
-        public Review GetById(int ReviewId)
+        public static ReviewDTO GetById(int ReviewId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Reviews WHERE ReviewId = @ReviewId";
-                return connection.QuerySingleOrDefault<Review>(request, new { ReviewId = ReviewId });
+                return connection.QuerySingleOrDefault<ReviewDTO>(request, new { ReviewId = ReviewId });
             }
         }
 
-        public void Insert(Review data)
+        public static void Insert(ReviewDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -43,7 +43,7 @@ namespace Data
             }
         }
 
-        public void Update(Review data)
+        public static void Update(ReviewDTO data)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {
@@ -55,7 +55,7 @@ namespace Data
             }
         }
 
-        public void Delete(int ReviewId)
+        public static void Delete(int ReviewId)
         {
             using (var connection = new SQLiteConnection(_connectionString))
             {

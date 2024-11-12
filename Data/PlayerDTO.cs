@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Player
+    public class PlayerDTO
     {
         public int PlayerId { get; set; }
         public string FirstName { get; set; }

@@ -3,36 +3,36 @@ using System.Data.SQLite;
 using Dapper;
 using Data;
 
-public class PlayerTDG
+public static class PlayerTDG
 {
-    private readonly string _connectionString;
+    private static string _connectionString;
 
-    public PlayerTDG(string connectionString)
+    public static void SetConnectionString(string connectionString)
     {
-        _connectionString = connectionString;
+        _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
     }
 
-    public IEnumerable<Player> GetAll()
+    public static  IEnumerable<PlayerDTO> GetAll()
     {
         using(var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Players";
-            return connection.Query<Player>(request);
+            return connection.Query<PlayerDTO>(request);
         }
     }
 
-    public Player GetById(int playerId)
+    public static PlayerDTO GetById(int playerId)
     {
         using(var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Players WHERE PlayerId = @PlayerId";
-            return connection.QuerySingleOrDefault<Player>(request, new { PlayerId = playerId });
+            return connection.QuerySingleOrDefault<PlayerDTO>(request, new { PlayerId = playerId });
         }
     }
 
-    public void Insert(Player data)
+    public static void Insert(PlayerDTO data)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
@@ -43,7 +43,7 @@ public class PlayerTDG
         }
     }
 
-    public void Update(Player data)
+    public static void Update(PlayerDTO data)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
@@ -52,7 +52,7 @@ public class PlayerTDG
             connection.Execute(request, data);
         }
     }   
-    public void Delete(int playerId)
+    public static void Delete(int playerId)
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {

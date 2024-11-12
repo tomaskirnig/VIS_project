@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Genre
+    public class GenreDTO
     {
         public int GenreId { get; set; }
         public string GenreNameShort { get; set; }
