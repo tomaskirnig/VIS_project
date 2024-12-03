@@ -13,13 +13,13 @@ public static class GameTDG
         _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
     }
 
-    public static IEnumerable<GameDTO> GetAll()
+    public static List<GameDTO> GetAll()
     {
         using (var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Games";
-            return connection.Query<GameDTO>(request);
+            return connection.Query<GameDTO>(request).ToList();
         }
     }
 

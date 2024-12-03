@@ -12,13 +12,13 @@ public static class PlayerTDG
         _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
     }
 
-    public static  IEnumerable<PlayerDTO> GetAll()
+    public static List<PlayerDTO> GetAll()
     {
         using(var connection = new SQLiteConnection(_connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Players";
-            return connection.Query<PlayerDTO>(request);
+            return connection.Query<PlayerDTO>(request).ToList();
         }
     }
 
