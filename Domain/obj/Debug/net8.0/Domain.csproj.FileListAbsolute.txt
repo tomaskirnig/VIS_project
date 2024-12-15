@@ -47,3 +47,5 @@ F:\VS\VIS\VIS_project\Domain\obj\Debug\net8.0\refint\Domain.dll
 F:\VS\VIS\VIS_project\Domain\obj\Debug\net8.0\Domain.pdb
 F:\VS\VIS\VIS_project\Domain\obj\Debug\net8.0\Domain.genruntimeconfig.cache
 F:\VS\VIS\VIS_project\Domain\obj\Debug\net8.0\ref\Domain.dll
+F:\VS\VIS\VIS_project\Domain\bin\Debug\net8.0\LiveCharts.dll
+F:\VS\VIS\VIS_project\Domain\bin\Debug\net8.0\LiveCharts.Wpf.dll

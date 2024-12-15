@@ -14,5 +14,7 @@ namespace Data
         public string Publisher { get; set; }
         public decimal Price { get; set; }
         public int MinimumAge { get; set; }
+        public int GenreId { get; set; }
+        public int PlatformId { get; set; }
     }
 }

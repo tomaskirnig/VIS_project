@@ -1,0 +1,48 @@
+﻿<Window x:Class="Presentation.LogIn_Register"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="LogIn_Register" Height="600" Width="800">
+    <Grid>
+        <StackPanel>
+            <!-- Username Input -->
+            <Label Content="Username" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+            <TextBox Name="UsernameInput" Width="300"/>
+
+            <!-- Password Input -->
+            <Label Content="Password" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+            <PasswordBox Name="PasswordInput" Width="300"/>
+
+            <!-- Additional Fields for Registration -->
+            <StackPanel Name="RegisterFields" Visibility="Collapsed">
+                <Label Content="First Name" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+                <TextBox Name="FirstNameInput" Width="300"/>
+
+                <Label Content="Last Name" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+                <TextBox Name="LastNameInput" Width="300"/>
+
+                <Label Content="Email" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+                <TextBox Name="EmailInput" Width="300"/>
+
+                <Label Content="Date of Birth" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+                <DatePicker Name="DateOfBirthInput" Width="300"/>
+
+                <Label Content="Gender" HorizontalAlignment="Center" Margin="0 10 0 10" Foreground="#5562f3" TextBlock.FontWeight="Bold"></Label>
+                <ComboBox Name="GenderInput" Width="300">
+                    <ComboBoxItem Content="Male" />
+                    <ComboBoxItem Content="Female" />
+                    <ComboBoxItem Content="Other" />
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Action Button -->
+            <Button Name="ActionButton" Content="Login" Click="ActionButton_Click" Width="200" Margin="10" Cursor="Hand"/>
+
+            <!-- Toggle Between Login and Register -->
+            <TextBlock Name="SwitchModeText" Text="Don't have an account? Register" Foreground="#5562f3" TextBlock.FontWeight="Bold" Cursor="Hand" HorizontalAlignment="Center" Margin="10" MouseDown="SwitchModeText_MouseDown"/>
+        </StackPanel>
+    </Grid>
+</Window>

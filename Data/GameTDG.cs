@@ -6,16 +6,9 @@ using Data;
 
 public static class GameTDG
 {
-    private static string _connectionString;
-
-    public static void SetConnectionString(string connectionString)
-    {
-        _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-    }
-
     public static List<GameDTO> GetAll()
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Games";
@@ -25,7 +18,7 @@ public static class GameTDG
 
     public static GameDTO GetById(int gameId)
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
             var request = "SELECT * FROM Games WHERE GameId = @GameId";
@@ -33,42 +26,56 @@ public static class GameTDG
         }
     }
 
-    public static GameDTO GetByTitle(string title)
+    public static List<GameDTO> GetNGames(int from, int to)
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
-            var request = "SELECT * FROM Games WHERE Title = @title";
-            return connection.QuerySingleOrDefault<GameDTO>(request, new { GameId = gameId });
+            var query = "SELECT * FROM Games WHERE GameId BETWEEN @From AND @To";
+            return connection.Query<GameDTO>(query, new { From = from, To = to }).ToList();
+        }
+    }
+
+    public static GameDTO GetByTitle(string title)
+    {
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+        {
+            connection.Open();
+            var request = "SELECT * FROM Games WHERE Title = @Title";
+            return connection.QuerySingleOrDefault<GameDTO>(request, new { Title = title });
         }
     }
 
     public static void Insert(GameDTO data)
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
-            var request = @"INSERT INTO Games (Title, ReleaseDate, Publisher, Price, MinimumAge) 
-                        VALUES (@Title, @ReleaseDate, @Publisher, @Price, @MinimumAge)";
+            var request = @"
+            INSERT INTO Games (Title, ReleaseDate, Publisher, Price, MinimumAge, GenreId, PlatformId) 
+            VALUES (@Title, @ReleaseDate, @Publisher, @Price, @MinimumAge, @GenreId, @PlatformId)";
             connection.Execute(request, data);
         }
     }
 
     public static void Update(GameDTO data)
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
-            var request = @"UPDATE Games SET Title = @Title, ReleaseDate = @ReleaseDate, 
-                        Publisher = @Publisher, Price = @Price, MinimumAge = @MinimumAge 
-                        WHERE GameId = @GameId";
+            var request = @"
+            UPDATE Games 
+            SET Title = @Title, ReleaseDate = @ReleaseDate, Publisher = @Publisher, 
+                Price = @Price, MinimumAge = @MinimumAge, GenreId = @GenreId, PlatformId = @PlatformId
+            WHERE GameId = @GameId";
             connection.Execute(request, data);
         }
     }
 
+
     public static void Delete(int gameId)
     {
-        using (var connection = new SQLiteConnection(_connectionString))
+        using (var connection = new SQLiteConnection(ConnConfig._connectionString))
         {
             connection.Open();
             var request = "DELETE FROM Games WHERE GameId = @GameId";

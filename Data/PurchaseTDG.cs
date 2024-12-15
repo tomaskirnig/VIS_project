@@ -5,25 +5,19 @@ namespace Data
 {
     public static class PurchaseTDG
     {
-        private static string _connectionString;
-        public static void SetConnectionString(string connectionString)
+        public static List<PurchaseDTO> GetAll()
         {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-        }
-
-        public static IEnumerable<PurchaseDTO> GetAll()
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Purchases";
-                return connection.Query<PurchaseDTO>(request);
+                return connection.Query<PurchaseDTO>(request).ToList();
             }
         }
 
         public static PurchaseDTO GetById(int PurchaseId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Purchases WHERE PurchaseId = @PurchaseId";
@@ -31,9 +25,49 @@ namespace Data
             }
         }
 
+        public static List<PurchaseDTO> GetByPlayerId(int PlayerId)
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT * FROM Purchases WHERE PlayerId = @PlayerId";
+                return connection.Query<PurchaseDTO>(request, new { PlayerId = PlayerId }).ToList();
+            }
+        }
+
+        public static float GetPriceSum()
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT SUM(Price) FROM Purchases";
+                return connection.QuerySingleOrDefault<float>(request);
+            }
+        }
+
+        public static int GetPurchaseCount()
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT COUNT(*) FROM Purchases";
+                return connection.QuerySingleOrDefault<int>(request);
+            }
+        }
+
+        public static float GetPriceSum(int GameId)
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT SUM(Price) FROM Purchases WHERE GameId = @GameId";
+                return connection.QuerySingleOrDefault<float>(request, new { GameId = GameId });
+            }
+        }
+
         public static void Insert(PurchaseDTO data)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = @"INSERT INTO Purchases (GameId, PlayerId, Price, PurchaseDate) 
@@ -44,7 +78,7 @@ namespace Data
 
         public static void Update(PurchaseDTO data)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = @"UPDATE Purchases SET GameId = @GameId, PlayerId = @PlayerId, 
@@ -56,7 +90,7 @@ namespace Data
 
         public static void Delete(int PurchaseId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "DELETE FROM Purchases WHERE PurchaseId = @PurchaseId";

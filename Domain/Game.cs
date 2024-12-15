@@ -15,6 +15,8 @@ namespace Domain
         public string Publisher { get; set; }
         public decimal Price { get; set; }
         public int MinimumAge { get; set; }
+        public int GenreId { get; set; }
+        public int PlatformId { get; set; }
 
         public Game(GameDTO gameDTO)
         {
@@ -57,6 +59,8 @@ namespace Domain
             Publisher = gameDTO.Publisher;
             Price = gameDTO.Price;
             MinimumAge = gameDTO.MinimumAge;
+            GenreId = gameDTO.GenreId;
+            PlatformId = gameDTO.PlatformId;
         }
 
         public void Update()
@@ -68,7 +72,9 @@ namespace Domain
                 ReleaseDate = ReleaseDate,
                 Publisher = Publisher,
                 Price = Price,
-                MinimumAge = MinimumAge
+                MinimumAge = MinimumAge,
+                GenreId = GenreId,
+                PlatformId = PlatformId
             };
 
             GameTDG.Update(game);
@@ -80,6 +86,20 @@ namespace Domain
 
             if (gamesDTOs != null)
             {
+                return gamesDTOs.Select(gameDTO => new Game(gameDTO)).ToList();
+            }
+            else
+            {
+                throw new ArgumentException("No games found");
+            }
+        }
+
+        public static List<Game> GetNGames(int from, int to)
+        {
+            List<GameDTO> gamesDTOs = GameTDG.GetNGames(from, to);
+
+            if (gamesDTOs != null)
+            {
                 List<Game> gameList = gamesDTOs.Select(gameDTO => new Game(gameDTO)).ToList();
 
                 return gameList;
@@ -87,7 +107,6 @@ namespace Domain
             else
             {
                 throw new ArgumentException("No games found");
-                return null;
             }
         }
     }

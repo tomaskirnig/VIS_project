@@ -56,3 +56,5 @@ F:\VS\VIS\VIS_project\Data\obj\Debug\net8.0\refint\Data.dll
 F:\VS\VIS\VIS_project\Data\obj\Debug\net8.0\Data.pdb
 F:\VS\VIS\VIS_project\Data\obj\Debug\net8.0\Data.genruntimeconfig.cache
 F:\VS\VIS\VIS_project\Data\obj\Debug\net8.0\ref\Data.dll
+F:\VS\VIS\VIS_project\Data\bin\Debug\net8.0\LiveCharts.dll
+F:\VS\VIS\VIS_project\Data\bin\Debug\net8.0\LiveCharts.Wpf.dll

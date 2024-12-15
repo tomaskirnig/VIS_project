@@ -15,5 +15,8 @@ namespace Data
         public DateTime OldReleaseDate { get; set; }
         public decimal OldPrice { get; set; }
         public string OldPublisher { get; set; }
+        public int OldMinimumAge { get; set; }
+        public int OldGenreId { get; set; }
+        public int OldPlatformId { get; set; }
     }
 }

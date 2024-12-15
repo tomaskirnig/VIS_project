@@ -10,14 +10,14 @@ Data
 
 Domain
 - Identity field +
-- Domain model -
+- Domain model +
 - Transcaction script -
 
 - Unit of Work - (dva způsoby)
 - Identity Map -
-- Lazy Load -
+- Lazy Load +
 
-- Identity Field -
+- Identity Field +
 - Foreign Key Mapping -
 - Association Table Mapping -
 - Dependent Mapping -

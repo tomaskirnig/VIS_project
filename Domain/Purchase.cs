@@ -68,5 +68,20 @@ namespace Domain
                 throw new ArgumentException("No purchases found");
             }
         }
+
+        public static float GetPriceSum()
+        {
+            return PurchaseTDG.GetPriceSum();
+        }
+
+        public static int GetPurchaseCount()
+        {
+            return PurchaseTDG.GetPurchaseCount();
+        }
+
+        public static float GetPriceSum(int gameId)
+        {
+            return PurchaseTDG.GetPriceSum(gameId);
+        }
     }
 }

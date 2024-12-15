@@ -6,19 +6,12 @@ namespace Data
 {
     public static class DBControl
     {
-        private static string _databaseFilePath;
-
-        public static void setDatabaseFilePath(string databaseFilePath)
-        {
-            _databaseFilePath = databaseFilePath;
-        }
-
         // Method to create the database if it doesn't exist
         public static void CreateDatabaseIfNotExists()
         {
-            if (!File.Exists(_databaseFilePath))
+            if (!File.Exists(ConnConfig._databaseFilePath))
             {
-                SQLiteConnection.CreateFile(_databaseFilePath);
+                SQLiteConnection.CreateFile(ConnConfig._databaseFilePath);
                 Console.WriteLine("Database created successfully.");
 
                 // Initialize database with tables
@@ -33,7 +26,7 @@ namespace Data
         // Method to initialize the database with required tables
         private static void InitializeDatabase()
         {
-            using (var connection = new SQLiteConnection($"Data Source={_databaseFilePath};Version=3;"))
+            using (var connection = new SQLiteConnection($"Data Source={ConnConfig._databaseFilePath};Version=3;"))
             {
                 connection.Open();
 
@@ -83,27 +76,35 @@ namespace Data
                     ReleaseDate DATE,
                     Publisher TEXT,
                     Price DECIMAL,
-                    MinimumAge INTEGER
+                    MinimumAge INTEGER,
+                    GenreId INTEGER,
+                    PlatformId INTEGER,
+                    FOREIGN KEY(GenreId) REFERENCES Genres(GenreId),
+                    FOREIGN KEY(PlatformId) REFERENCES Platforms(PlatformId)
                 );";
             ExecuteNonQuery(sql, connection);
         }
 
+
         private static void CreatePlayersTable(SQLiteConnection connection)
         {
             string sql = @"
-                CREATE TABLE IF NOT EXISTS Players (
-                    PlayerId INTEGER PRIMARY KEY AUTOINCREMENT,
-                    FirstName TEXT,
-                    LastName TEXT,
-                    DateOfBirth DATE,
-                    Email TEXT,
-                    Gender CHAR,
-                    RegistrationDate DATE,
-                    Country TEXT,
-                    GameReviewer BOOLEAN
-                );";
+            CREATE TABLE IF NOT EXISTS Players (
+                PlayerId INTEGER PRIMARY KEY AUTOINCREMENT,
+                FirstName TEXT,
+                LastName TEXT,
+                DateOfBirth DATE,
+                Email TEXT,
+                Gender CHAR,
+                RegistrationDate DATE,
+                GameReviewer BOOLEAN,
+                UserName TEXT,
+                Password TEXT,
+                Role INTEGER
+            );";
             ExecuteNonQuery(sql, connection);
         }
+
 
         private static void CreateReviewsTable(SQLiteConnection connection)
         {
@@ -163,9 +164,9 @@ namespace Data
         // Method to delete the database
         public static void DeleteDatabase()
         {
-            if (File.Exists(_databaseFilePath))
+            if (File.Exists(ConnConfig._databaseFilePath))
             {
-                File.Delete(_databaseFilePath);
+                File.Delete(ConnConfig._databaseFilePath);
                 Console.WriteLine("Database deleted successfully.");
             }
             else

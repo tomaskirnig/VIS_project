@@ -5,26 +5,19 @@ namespace Data
 {
     public static class ReviewTDG
     {
-        private static string _connectionString;
-
-        public static void SetConnectionString(string connectionString)
+        public static List<ReviewDTO> GetAll()
         {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-        }
-
-        public static IEnumerable<ReviewDTO> GetAll()
-        {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Reviews";
-                return connection.Query<ReviewDTO>(request);
+                return connection.Query<ReviewDTO>(request).ToList();
             }
         }
 
         public static ReviewDTO GetById(int ReviewId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "SELECT * FROM Reviews WHERE ReviewId = @ReviewId";
@@ -32,9 +25,34 @@ namespace Data
             }
         }
 
+        public static float GetAverageRating(int GameId)
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT AVG(Rating) FROM Reviews WHERE GameId = @GameId";
+                return connection.QuerySingleOrDefault<float>(request, new { GameId = GameId });
+            }
+        }
+
+        public static List<(int GameId, float AverageRating)> GetTopNAverageRatings(int Count)
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = @"
+                    SELECT GameId, AVG(Rating) as AverageRating
+                    FROM Reviews
+                    GROUP BY GameId
+                    ORDER BY AverageRating DESC
+                    LIMIT @Count";
+                return connection.Query<(int GameId, float AverageRating)>(request, new { Count = Count }).ToList();
+            }
+        }
+
         public static void Insert(ReviewDTO data)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = @"INSERT INTO Reviews (Rating, Text, ReviewDate, GameId, PlayerId) 
@@ -45,7 +63,7 @@ namespace Data
 
         public static void Update(ReviewDTO data)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = @"UPDATE Reviews SET Rating = @Rating, Text = @Text, 
@@ -57,7 +75,7 @@ namespace Data
 
         public static void Delete(int ReviewId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var request = "DELETE FROM Reviews WHERE ReviewId = @ReviewId";

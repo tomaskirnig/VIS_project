@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 
 namespace Domain
 {
@@ -14,8 +15,30 @@ namespace Domain
         public string Email { get; set; }
         public char Gender { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public string Country { get; set; }
         public bool GameReviewer { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int Role { get; set; }
+        private List<Purchase> _purchaseHistory;
+        // Lazy-loaded PurchaseHistory
+        public List<Purchase> PurchaseHistory
+        {
+            get
+            {
+                // If not loaded yet, load from DB
+                if (_purchaseHistory == null)
+                {
+                    var purchasesDTO = PurchaseTDG.GetByPlayerId(PlayerId);
+                    _purchaseHistory = purchasesDTO.Select(dto => new Purchase(dto)).ToList();
+                }
+
+                return _purchaseHistory;
+            }
+            set
+            {
+                _purchaseHistory = value;
+            }
+        }
 
         public Player(PlayerDTO playerDTO)
         {
@@ -46,8 +69,10 @@ namespace Domain
             Email = playerDTO.Email;
             Gender = playerDTO.Gender;
             RegistrationDate = playerDTO.RegistrationDate;
-            Country = playerDTO.Country;
             GameReviewer = playerDTO.GameReviewer;
+            UserName = playerDTO.UserName;
+            Password = playerDTO.Password;
+            Role = playerDTO.Role;
         }
 
         // Update method to save changes
@@ -62,11 +87,18 @@ namespace Domain
                 Email = Email,
                 Gender = Gender,
                 RegistrationDate = RegistrationDate,
-                Country = Country,
-                GameReviewer = GameReviewer
+                GameReviewer = GameReviewer,
+                UserName = UserName,
+                Password = Password,
+                Role = Role
             };
 
             PlayerTDG.Update(player);
+        }
+
+        public static void Create(PlayerDTO player)
+        {
+            PlayerTDG.Insert(player);
         }
 
         // Static method to get all players

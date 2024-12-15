@@ -7,18 +7,11 @@ namespace Data
 {
     public static class PlatformTDG
     {
-        private static string _connectionString;
-        private static PlatformMapper _platformMapper;
-
-        public static void SetConnectionString(string connectionString)
-        {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-            _platformMapper = new PlatformMapper();
-        }
+        private static PlatformMapper _platformMapper = new PlatformMapper();
 
         public static PlatformDTO GetById(int platformId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "SELECT * FROM Platforms WHERE PlatformId = @PlatformId";
@@ -38,11 +31,11 @@ namespace Data
             return null; // Return null if no platform is found
         }
 
-        public static IEnumerable<PlatformDTO> GetAll()
+        public static List<PlatformDTO> GetAll()
         {
             var platforms = new List<PlatformDTO>();
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "SELECT * FROM Platforms";
@@ -62,7 +55,7 @@ namespace Data
 
         public static void Insert(PlatformDTO platform)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "INSERT INTO Platforms (Name, ParentCompany, Founded, Website) VALUES (@Name, @ParentCompany, @Founded, @Website)";
@@ -73,7 +66,7 @@ namespace Data
 
         public static void Update(PlatformDTO platform)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "UPDATE Platforms SET Name = @Name, ParentCompany = @ParentCompany, Founded = @Founded, Website = @Website WHERE PlatformId = @PlatformId";
@@ -83,7 +76,7 @@ namespace Data
 
         public static void Delete(int platformId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "DELETE FROM Platforms WHERE PlatformId = @PlatformId";

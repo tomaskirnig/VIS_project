@@ -1,64 +1,89 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using Dapper;
 using Data;
 
-public static class PlayerTDG
+namespace Data
 {
-    private static string _connectionString;
-
-    public static void SetConnectionString(string connectionString)
+    public static class PlayerTDG
     {
-        _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-    }
-
-    public static List<PlayerDTO> GetAll()
-    {
-        using(var connection = new SQLiteConnection(_connectionString))
+        public static List<PlayerDTO> GetAll()
         {
-            connection.Open();
-            var request = "SELECT * FROM Players";
-            return connection.Query<PlayerDTO>(request).ToList();
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT * FROM Players";
+                return connection.Query<PlayerDTO>(request).ToList();
+            }
         }
-    }
 
-    public static PlayerDTO GetById(int playerId)
-    {
-        using(var connection = new SQLiteConnection(_connectionString))
+        public static PlayerDTO GetById(int playerId)
         {
-            connection.Open();
-            var request = "SELECT * FROM Players WHERE PlayerId = @PlayerId";
-            return connection.QuerySingleOrDefault<PlayerDTO>(request, new { PlayerId = playerId });
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT * FROM Players WHERE PlayerId = @PlayerId";
+                return connection.QuerySingleOrDefault<PlayerDTO>(request, new { PlayerId = playerId });
+            }
         }
-    }
 
-    public static void Insert(PlayerDTO data)
-    {
-        using (var connection = new SQLiteConnection(_connectionString))
+        public static PlayerDTO GetByUsername(string username)
         {
-            connection.Open();
-            var request = @"INSERT INTO Players (FirstName, LastName, DateOfBirth, Email, Gender, RegistrationDate, Country, GameReviewer) 
-                        VALUES (@FirstName, @LastName, @DateOfBirth, @Email, @Gender, @RegistrationDate, @Country, @GameReviewer)";
-            connection.Execute(request, data);
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "SELECT * FROM Players WHERE UserName = @UserName";
+                return connection.QuerySingleOrDefault<PlayerDTO>(request, new { UserName = username });
+            }
         }
-    }
 
-    public static void Update(PlayerDTO data)
-    {
-        using (var connection = new SQLiteConnection(_connectionString))
+        public static void Insert(PlayerDTO data)
         {
-            connection.Open();
-            var request = @"UPDATE Players SET FirstName = @FirstName, LastName = @LastName, DateOfBirth = @DateOfBirth, Email = @Email, Gender = @Gender, RegistrationDate = @RegistrationDate, Country = @Country, GameReviewer = @GameReviewer WHERE PlayerId = @PlayerId";
-            connection.Execute(request, data);
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = @"
+                    INSERT INTO Players 
+                    (FirstName, LastName, DateOfBirth, Email, Gender, RegistrationDate, GameReviewer, UserName, Password, Role) 
+                    VALUES 
+                    (@FirstName, @LastName, @DateOfBirth, @Email, @Gender, @RegistrationDate, @GameReviewer, @UserName, @Password, @Role)";
+                connection.Execute(request, data);
+            }
         }
-    }   
-    public static void Delete(int playerId)
-    {
-        using (var connection = new SQLiteConnection(_connectionString))
+
+        public static void Update(PlayerDTO data)
         {
-            connection.Open();
-            var request = "DELETE FROM Players WHERE PlayerId = @PlayerId";
-            connection.Execute(request, new { PlayerId = playerId });
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = @"
+                    UPDATE Players 
+                    SET FirstName = @FirstName, 
+                        LastName = @LastName, 
+                        DateOfBirth = @DateOfBirth, 
+                        Email = @Email, 
+                        Gender = @Gender, 
+                        RegistrationDate = @RegistrationDate, 
+                        GameReviewer = @GameReviewer, 
+                        UserName = @UserName, 
+                        Password = @Password,
+                        Role = @Role
+                    WHERE PlayerId = @PlayerId";
+                connection.Execute(request, data);
+            }
+        }
+
+        public static void Delete(int playerId)
+        {
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
+            {
+                connection.Open();
+                var request = "DELETE FROM Players WHERE PlayerId = @PlayerId";
+                connection.Execute(request, new { PlayerId = playerId });
+            }
         }
     }
 }
