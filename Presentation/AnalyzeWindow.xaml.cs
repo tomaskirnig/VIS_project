@@ -44,7 +44,7 @@ namespace Presentation
             // Update text blocks
             GamesCountText.Text = $"Total Games: {totalGames}";
             PlayersCountText.Text = $"Total Players: {totalPlayers}";
-            AveragePriceText.Text = $"Average Game Price: ${averagePrice}";
+            AveragePriceText.Text = $"Average Game Price: ${averagePrice:F2}";
             NumberOfSoldGamesText.Text = $"Total Games Sold: {numberOfSoldGames}";
 
             // Update top 5 games
@@ -159,7 +159,6 @@ namespace Presentation
 
         private string GenerateAnalysisSummary()
         {
-            // Build the analysis summary string
             var summary = $"Analysis Summary:\n\n";
             summary += $"Total Games: {games.Count}\n";
             summary += $"Total Players: {players.Count}\n";
@@ -206,7 +205,6 @@ namespace Presentation
             return summary;
         }
 
-
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
@@ -224,7 +222,6 @@ namespace Presentation
 
         private string GenerateCsvData()
         {
-            // Build CSV string
             var csv = "Category,Value\n";
             csv += $"Total Games,{games.Count}\n";
             csv += $"Total Players,{players.Count}\n";
@@ -274,6 +271,7 @@ namespace Presentation
 
             return csv;
         }
+
 
 
         private void DrawPlatformDistribution()

@@ -162,7 +162,7 @@ namespace Presentation
                 },
                 new TextBlock
                 {
-                    Text = $"Price: ${game.Price}",
+                    Text = $"Price: ${game.Price:F2}",
                     FontSize = 14,
                     Margin = new Thickness(5)
                 },
