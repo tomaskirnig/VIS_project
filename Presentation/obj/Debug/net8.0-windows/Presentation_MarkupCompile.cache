@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 F:\VS\VIS\VIS_project\Presentation\App.xaml
-3-479199985
+5-128522981
 
-6-88449819
+8791186219
 2081956151633
-AnalyzeWindow.xaml;LandingPage.xaml;LogIn_Register.xaml;
+AdminWindow.xaml;AnalyzeWindow.xaml;EditWindow.xaml;LandingPage.xaml;LogIn_Register.xaml;
 
 False
 

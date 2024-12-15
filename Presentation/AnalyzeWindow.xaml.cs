@@ -160,10 +160,19 @@ namespace Presentation
         private string GenerateAnalysisSummary()
         {
             // Build the analysis summary string
-            var summary = $"Total Games: {games.Count}\n";
+            var summary = $"Analysis Summary:\n\n";
+            summary += $"Total Games: {games.Count}\n";
             summary += $"Total Players: {players.Count}\n";
             summary += $"Average Game Price: ${games.Average(g => g.Price):F2}\n";
-            summary += $"Total Games Sold: {purchases.Count}\n";
+            summary += $"Total Games Sold: {purchases.Count}\n\n";
+
+            summary += "Top 5 Games by Average Rating:\n";
+            var topFiveRatings = Review.GetTopNAverageRatings(5);
+            foreach (var (gameId, averageRating) in topFiveRatings)
+            {
+                var gameTitle = games.FirstOrDefault(g => g.GameId == gameId)?.Title ?? "Unknown Game";
+                summary += $"{gameTitle} - {averageRating:F2}\n";
+            }
 
             summary += "\nGenre Distribution:\n";
             var genreCounts = games.GroupBy(g => g.GenreId)
@@ -182,8 +191,21 @@ namespace Presentation
                 summary += $"{entry.Date:yyyy-MM-dd}: {entry.Count}\n";
             }
 
+            summary += "\nPlatform Distribution:\n";
+            var platformCounts = games.GroupBy(g => g.PlatformId)
+                                      .Select(group => new
+                                      {
+                                          Platform = platforms.FirstOrDefault(p => p.PlatformId == group.Key)?.Name ?? $"Unknown (ID {group.Key})",
+                                          Count = group.Count()
+                                      });
+            foreach (var platform in platformCounts)
+            {
+                summary += $"{platform.Platform}: {platform.Count}\n";
+            }
+
             return summary;
         }
+
 
         private void ExportCsvButton_Click(object sender, RoutedEventArgs e)
         {
@@ -207,7 +229,16 @@ namespace Presentation
             csv += $"Total Games,{games.Count}\n";
             csv += $"Total Players,{players.Count}\n";
             csv += $"Average Game Price,${games.Average(g => g.Price):F2}\n";
-            csv += $"Total Games Sold,{purchases.Count}\n";
+            csv += $"Total Games Sold,{purchases.Count}\n\n";
+
+            csv += "Top 5 Games by Average Rating:\n";
+            csv += "Game,Average Rating\n";
+            var topFiveRatings = Review.GetTopNAverageRatings(5);
+            foreach (var (gameId, averageRating) in topFiveRatings)
+            {
+                var gameTitle = games.FirstOrDefault(g => g.GameId == gameId)?.Title ?? "Unknown Game";
+                csv += $"{gameTitle},{averageRating:F2}\n";
+            }
 
             csv += "\nGenre Distribution:\n";
             csv += "Genre,Count\n";
@@ -228,8 +259,22 @@ namespace Presentation
                 csv += $"{entry.Date:yyyy-MM-dd},{entry.Count}\n";
             }
 
+            csv += "\nPlatform Distribution:\n";
+            csv += "Platform,Count\n";
+            var platformCounts = games.GroupBy(g => g.PlatformId)
+                                      .Select(group => new
+                                      {
+                                          Platform = platforms.FirstOrDefault(p => p.PlatformId == group.Key)?.Name ?? $"Unknown (ID {group.Key})",
+                                          Count = group.Count()
+                                      });
+            foreach (var platform in platformCounts)
+            {
+                csv += $"{platform.Platform},{platform.Count}\n";
+            }
+
             return csv;
         }
+
 
         private void DrawPlatformDistribution()
         {

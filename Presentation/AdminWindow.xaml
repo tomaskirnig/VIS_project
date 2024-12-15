@@ -1,0 +1,30 @@
+﻿<Window x:Class="Presentation.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <DataGrid Name="PlayersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,50">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player ID" Binding="{Binding PlayerId}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Username" Binding="{Binding UserName}" Width="100"/>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="100"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="100"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                <DataGridTemplateColumn Header="Actions" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Edit" Width="50" Margin="5" Cursor="Hand" Click="EditPlayer_Click"/>
+                                <Button Content="Delete" Width="50" Margin="5" Cursor="Hand" Click="DeletePlayer_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -6,9 +6,9 @@ namespace Data
     {
         static void Main(string[] args)
         {
-            DBControl.CreateDatabaseIfNotExists();
+            //DBControl.CreateDatabaseIfNotExists();
 
-            PopulateTables();
+            //PopulateTables();
 
             var games = GameTDG.GetNGames(0, 9);
             var players = PlayerTDG.GetAll();
@@ -22,7 +22,7 @@ namespace Data
             }
             foreach(var player in players)
             {
-                Console.WriteLine($"PlayerId: {player.PlayerId}, FirstName: {player.FirstName}, LastName: {player.LastName}, Email: {player.Email}, UserName: {player.UserName}, UserName: {player.UserName}, Password: {player.Password}");
+                Console.WriteLine($"PlayerId: {player.PlayerId}, FirstName: {player.FirstName}, LastName: {player.LastName}, Email: {player.Email}, UserName: {player.UserName}, UserName: {player.UserName}, Password: {player.Password}, Role: {player.Role}");
             }
             foreach (var platform in platforms)
             {

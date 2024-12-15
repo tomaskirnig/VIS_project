@@ -218,7 +218,7 @@ namespace Presentation
 
                 profilePanel.Children.Add(new TextBlock
                 {
-                    Text = $"Role: {(currentUser.Role == 0 ? "Player" : "Admin")}",
+                    Text = $"Role: {(currentUser.Role == 0 ? "Player" : currentUser.Role == 1 ? "Analyst" : "Admin")}",
                     FontSize = 14,
                     TextAlignment = TextAlignment.Center
                 });
@@ -319,27 +319,68 @@ namespace Presentation
 
         private void UpdatePageContent()
         {
-            if (Authentication.GetCurrentUser() != null)
+            // Clear existing Admin and Analyze buttons before adding them again
+            HeaderPanel.Children.OfType<Button>()
+                .Where(b => b.Content.ToString() == "Analyze" || b.Content.ToString() == "Admin")
+                .ToList()
+                .ForEach(b => HeaderPanel.Children.Remove(b));
+
+            var currentUser = Authentication.GetCurrentUser();
+
+            if (currentUser != null)
             {
                 LoginLogoutButton.Content = "Logout";
 
-                var currentUser = Authentication.GetCurrentUser();
-                if (currentUser.Role == 1 || currentUser.Role == 2) // 1 = Admin, 2 = Analyst
+                // Check if Analyze button already exists
+                if (!HeaderPanel.Children.OfType<Button>().Any(b => b.Content.ToString() == "Analyze"))
                 {
-                    // Add Analyze Button dynamically
-                    var analyzeButton = new Button
+                    if (currentUser.Role == 1 || currentUser.Role == 2) // 2 = Admin, 1 = Analyst
                     {
-                        Content = "Analyze",
-                        Width = 100,
-                        Margin = new Thickness(5),
-                        Background = new SolidColorBrush(Color.FromRgb(85, 98, 243)),
-                        Foreground = Brushes.White,
-                        FontWeight = FontWeights.Bold,
-                        Cursor = Cursors.Hand
-                    };
+                        // Add Analyze Button dynamically
+                        var analyzeButton = new Button
+                        {
+                            Content = "Analyze",
+                            Width = 100,
+                            Margin = new Thickness(5),
+                            Background = new SolidColorBrush(Color.FromRgb(85, 98, 243)),
+                            Foreground = Brushes.White,
+                            FontWeight = FontWeights.Bold,
+                            Cursor = Cursors.Hand
+                        };
 
-                    analyzeButton.Click += Analyze_Click;
-                    HeaderPanel.Children.Add(analyzeButton); 
+                        analyzeButton.Click += (s, e) =>
+                        {
+                            AnalyzeWindow analyzeWindow = new AnalyzeWindow();
+                            analyzeWindow.ShowDialog();
+                        };
+                        HeaderPanel.Children.Add(analyzeButton);
+                    }
+                }
+
+                // Check if Admin button already exists
+                if (!HeaderPanel.Children.OfType<Button>().Any(b => b.Content.ToString() == "Admin"))
+                {
+                    if (currentUser.Role == 2) // 2 = Admin
+                    {
+                        // Add Admin Button dynamically
+                        var adminButton = new Button
+                        {
+                            Content = "Admin",
+                            Width = 100,
+                            Margin = new Thickness(5),
+                            Background = new SolidColorBrush(Color.FromRgb(85, 98, 243)),
+                            Foreground = Brushes.White,
+                            FontWeight = FontWeights.Bold,
+                            Cursor = Cursors.Hand
+                        };
+
+                        adminButton.Click += (s, e) =>
+                        {
+                            AdminWindow adminWindow = new AdminWindow();
+                            adminWindow.ShowDialog();
+                        };
+                        HeaderPanel.Children.Add(adminButton);
+                    }
                 }
 
                 LoadGames(0, 9);
@@ -350,6 +391,7 @@ namespace Presentation
                 LoadGames(0, 9);
             }
         }
+
 
         private void Analyze_Click(object sender, RoutedEventArgs e)
         {

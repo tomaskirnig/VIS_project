@@ -52,3 +52,7 @@ F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\AnalyzeWindow.g.cs
 F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\AnalyzeWindow.baml
 F:\VS\VIS\VIS_project\Presentation\bin\Debug\net8.0-windows\LiveCharts.dll
 F:\VS\VIS\VIS_project\Presentation\bin\Debug\net8.0-windows\LiveCharts.Wpf.dll
+F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\AdminWindow.g.cs
+F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\AdminWindow.baml
+F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\EditWindow.g.cs
+F:\VS\VIS\VIS_project\Presentation\obj\Debug\net8.0-windows\EditWindow.baml
