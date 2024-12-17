@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Height="550" Width="850">
     <Grid Margin="10">
         <DataGrid Name="PlayersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,50">
             <DataGrid.Columns>
@@ -13,6 +13,7 @@
                 <DataGridTextColumn Header="Username" Binding="{Binding UserName}" Width="100"/>
                 <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="100"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="100"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="50"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
                 <DataGridTemplateColumn Header="Actions" Width="200">
                     <DataGridTemplateColumn.CellTemplate>

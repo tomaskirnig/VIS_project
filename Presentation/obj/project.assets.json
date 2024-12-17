@@ -1356,19 +1356,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tomas\\.nuget\\packages\\": {}
+    "C:\\Users\\tomki\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\VS\\VIS\\VIS_project\\Presentation\\Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\tomki\\VS\\VIS\\VIS_project\\Presentation\\Presentation.csproj",
       "projectName": "Presentation",
-      "projectPath": "F:\\VS\\VIS\\VIS_project\\Presentation\\Presentation.csproj",
-      "packagesPath": "C:\\Users\\Tomas\\.nuget\\packages\\",
-      "outputPath": "F:\\VS\\VIS\\VIS_project\\Presentation\\obj\\",
+      "projectPath": "C:\\Users\\tomki\\VS\\VIS\\VIS_project\\Presentation\\Presentation.csproj",
+      "packagesPath": "C:\\Users\\tomki\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tomki\\VS\\VIS\\VIS_project\\Presentation\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Tomas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tomki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1383,8 +1388,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "F:\\VS\\VIS\\VIS_project\\Domain\\Domain.csproj": {
-              "projectPath": "F:\\VS\\VIS\\VIS_project\\Domain\\Domain.csproj"
+            "C:\\Users\\tomki\\VS\\VIS\\VIS_project\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\tomki\\VS\\VIS\\VIS_project\\Domain\\Domain.csproj"
             }
           }
         }
@@ -1397,8 +1402,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -1422,16 +1428,46 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
     {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé střední ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
+      "libraryId": "System.Data.SqlClient",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé vysoké ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "libraryId": "System.Data.SqlClient",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1904",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Balíček „System.Drawing.Common“ 4.7.0 má známé kritické ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
+      "libraryId": "System.Drawing.Common",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček LiveCharts 0.9.7 se místo cílové architektury projektu net8.0-windows7.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Balíček LiveCharts 0.9.7 se místo cílové verze rozhraní .NET Framework projektu net8.0-windows7.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
       "libraryId": "LiveCharts",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -1441,7 +1477,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček LiveCharts.Wpf 0.9.7 se místo cílové architektury projektu net8.0-windows7.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Balíček LiveCharts.Wpf 0.9.7 se místo cílové verze rozhraní .NET Framework projektu net8.0-windows7.0 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1. Balíček nemusí být plně kompatibilní s vaším projektem.",
       "libraryId": "LiveCharts.Wpf",
       "targetGraphs": [
         "net8.0-windows7.0"

@@ -101,7 +101,6 @@ namespace Domain
             PlayerTDG.Insert(player);
         }
 
-        // Static method to get all players
         public static List<Player> GetAllPlayers()
         {
             List<PlayerDTO> playersDTO = PlayerTDG.GetAll();
