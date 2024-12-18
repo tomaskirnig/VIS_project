@@ -11,16 +11,10 @@ namespace Data
         public string GenreNameShort { get; set; }
         public string GenreNameFull { get; set; }
 
-        public GenreRDG(string connectionString)
-        {
-            _connectionString = connectionString;
-
-        }
-
         // Loads a single row into the instance
         public void Load(int genreId)
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "SELECT * FROM Genres WHERE GenreId = @GenreId";
@@ -38,7 +32,7 @@ namespace Data
         // Saves changes for this row instance
         public void Save()
         {
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 if (GenreId == 0)
@@ -60,7 +54,7 @@ namespace Data
         {
             if (GenreId == 0) throw new InvalidOperationException("Row must be loaded or saved before deletion.");
 
-            using (var connection = new SQLiteConnection(_connectionString))
+            using (var connection = new SQLiteConnection(ConnConfig._connectionString))
             {
                 connection.Open();
                 var sql = "DELETE FROM Genres WHERE GenreId = @GenreId";

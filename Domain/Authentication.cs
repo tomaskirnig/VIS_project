@@ -9,7 +9,7 @@ namespace Domain
 {
     public static class Authentication
     {
-        // In-memory storage of players (as Player objects)
+        // In-memory storage of players (Identity map)
         private static List<Player> Users = new List<Player>();
 
         // Session variables
@@ -45,7 +45,7 @@ namespace Domain
                 RegistrationDate = registrationDate,
                 GameReviewer = false,
                 UserName = username,
-                Password = password, // EncryptPassword(password)
+                Password = password, // EncryptPassword(password) - not used for simplucity when populating tables
                 Role = role
             };
 
@@ -85,7 +85,7 @@ namespace Domain
             
             if (user != null && ValidatePassword(password, user.Password))
             {
-                string sessionToken = user.UserName; //Guid.NewGuid().ToString();
+                string sessionToken = user.UserName; // Used username for simplicity
 
                 currentSessionToken = sessionToken;
                 currentSessionUser = user;
@@ -136,7 +136,7 @@ namespace Domain
 
         public static bool ValidatePassword(string inputPassword, string storedHash)
         {
-            //var inputHash = EncryptPassword(inputPassword);
+            //var inputHash = EncryptPassword(inputPassword); // Showcase of encrypting password 
             return storedHash == inputPassword;
         }
     }

@@ -59,9 +59,10 @@ namespace Presentation
             var selectedPlayer = (Player)PlayersDataGrid.SelectedItem;
             if (selectedPlayer != null)
             {
-                // Logic for deleting a player
+                // Deleting a player
                 MessageBox.Show($"Delete player: {selectedPlayer.UserName}");
-                players.Remove(selectedPlayer); // Simulate deletion
+                players.Remove(selectedPlayer); // Delete from the list
+                Player.Delete(selectedPlayer.PlayerId); // Delete from the database
                 PlayersDataGrid.ItemsSource = null;
                 PlayersDataGrid.ItemsSource = players; // Refresh the grid
             }

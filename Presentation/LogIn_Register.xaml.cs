@@ -42,7 +42,7 @@ namespace Presentation
                 if (Authentication.Login(username, password))
                 {
                     MessageBox.Show("Login successful!");
-                    this.Close(); // Close login window
+                    this.Close();
                 }
                 else
                 {
@@ -70,7 +70,6 @@ namespace Presentation
                 if (success)
                 {
                     MessageBox.Show("Registration successful!");
-                    //isLoginMode = true; // Switch to login mode
                     this.Close(); 
                     UpdateMode();
                 }

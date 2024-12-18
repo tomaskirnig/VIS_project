@@ -114,5 +114,10 @@ namespace Domain
                 throw new ArgumentException("No players found");
             }
         }
+
+        public static void Delete(int playerId)
+        {
+            PlayerTDG.Delete(playerId);
+        }
     }
 }

@@ -247,7 +247,7 @@ namespace Presentation
 
         private void Nastaveni_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Navigate(new NastaveniPage());
+            //MainFrame.Navigate(new NastaveniPage());  // Not implemented
         }
 
         private void LoadGames(int from, int to)
@@ -257,12 +257,11 @@ namespace Presentation
             // Clear existing children
             GamesGrid.Children.Clear();
             GamesGrid.Columns = 3;
-            // We have 3 columns, so calculate how many rows we need:
+            // Calculate count of rows
             int columns = 3;
             int totalGames = gamesToShow.Count();
             int rows = (int)Math.Ceiling((double)totalGames / columns);
 
-            // Set the rows dynamically
             GamesGrid.Rows = rows;
 
             // Populate the grid
@@ -336,7 +335,7 @@ namespace Presentation
                 {
                     if (currentUser.Role == 1 || currentUser.Role == 2) // 2 = Admin, 1 = Analyst
                     {
-                        // Add Analyze Button dynamically
+                        // Add Analyze Button 
                         var analyzeButton = new Button
                         {
                             Content = "Analyze",
@@ -362,7 +361,7 @@ namespace Presentation
                 {
                     if (currentUser.Role == 2) // 2 = Admin
                     {
-                        // Add Admin Button dynamically
+                        // Add Admin Button 
                         var adminButton = new Button
                         {
                             Content = "Admin",

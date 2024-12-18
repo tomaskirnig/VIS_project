@@ -59,7 +59,7 @@ namespace Data
             {
                 connection.Open();
                 var sql = "INSERT INTO Platforms (Name, ParentCompany, Founded, Website) VALUES (@Name, @ParentCompany, @Founded, @Website)";
-                connection.Execute(sql, platform); // Dapper maps Platform properties directly to SQL parameters
+                connection.Execute(sql, platform); // Dapper mapping used 
                 platform.PlatformId = (int)connection.LastInsertRowId; // Set the generated PlatformId
             }
         }
@@ -70,7 +70,7 @@ namespace Data
             {
                 connection.Open();
                 var sql = "UPDATE Platforms SET Name = @Name, ParentCompany = @ParentCompany, Founded = @Founded, Website = @Website WHERE PlatformId = @PlatformId";
-                connection.Execute(sql, platform); // Dapper maps Platform properties directly to SQL parameters
+                connection.Execute(sql, platform); // Dapper mapping used
             }
         }
 

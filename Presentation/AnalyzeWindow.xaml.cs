@@ -72,7 +72,7 @@ namespace Presentation
                                    .Select(group => new { Genre = GenreAR.FindById(group.Key)?.GenreNameShort ?? "Unknown", Count = group.Count() })
                                    .ToList();
 
-                    if (genreCounts.Count == 0) return;
+            if (genreCounts.Count == 0) return;
 
             GenreDistributionChart.Series = new SeriesCollection
             {
@@ -309,7 +309,7 @@ namespace Presentation
                     Title = platform.Platform,
                     Values = new ChartValues<int> { platform.Count },
                     DataLabels = true, // Display labels on the slices
-                    LabelPoint = chartPoint => $"{chartPoint.Participation:P}", //{platform.Platform}: {chartPoint.Y}
+                    LabelPoint = chartPoint => $"{chartPoint.Participation:P}", 
                     ToolTip = null
                 });
             }
